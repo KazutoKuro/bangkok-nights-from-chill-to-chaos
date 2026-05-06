@@ -679,14 +679,17 @@ function LayoutFrame({
   if (layout === "timeline") {
     const flow = ["Chill", "Food", "Drinks", "Chaos"];
     const timelineImages = picked.slice(0, 4);
+    const leadLine = cleanLine(slide.lines[0] ?? "");
+    const showLeadLine =
+      Boolean(leadLine) && leadLine.toLowerCase() !== slide.title.toLowerCase();
     const stageSizes = [
-      "h-[24vh] min-h-[170px] max-h-[240px] opacity-70 saturate-[0.9]",
-      "h-[28vh] min-h-[190px] max-h-[280px]",
-      "h-[33vh] min-h-[220px] max-h-[340px]",
-      "h-[39vh] min-h-[260px] max-h-[420px] scale-[1.03]",
+      "h-[20vh] min-h-[150px] max-h-[220px] opacity-70 saturate-[0.9]",
+      "h-[24vh] min-h-[170px] max-h-[260px]",
+      "h-[29vh] min-h-[200px] max-h-[320px]",
+      "h-[34vh] min-h-[230px] max-h-[380px] scale-[1.03]",
     ];
     return (
-      <div className="space-y-8">
+      <div className="space-y-6">
         <div className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3">
             <div className="glass inline-flex items-center rounded-full px-3 py-1 text-xs text-[color:var(--text-muted)]">
@@ -694,19 +697,19 @@ function LayoutFrame({
             </div>
             <div className="h-px w-16 bg-white/15 sm:w-24" />
           </div>
-          <h1 className="mt-5 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-5xl">
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-5xl">
             <RichText text={slide.title} />
           </h1>
-          {slide.lines.length ? (
+          {showLeadLine ? (
             <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[color:var(--text-muted)] sm:text-lg sm:leading-8">
-              <RichText text={cleanLine(slide.lines[0])} />
+              <RichText text={leadLine} />
             </p>
           ) : null}
         </div>
 
         <div className="relative">
-          <div className="pointer-events-none absolute left-3 right-3 top-[44%] h-[2px] rounded-full bg-gradient-to-r from-cyan-300/85 via-amber-300/75 to-pink-400/85 shadow-[0_0_30px_rgba(0,240,255,0.28),0_0_36px_rgba(255,45,149,0.32)] sm:left-10 sm:right-10" />
-          <div className="flex items-end gap-4 overflow-x-auto pb-3 sm:gap-5">
+          <div className="pointer-events-none absolute left-3 right-3 top-[48%] h-[2px] rounded-full bg-gradient-to-r from-cyan-300/85 via-amber-300/75 to-pink-400/85 shadow-[0_0_30px_rgba(0,240,255,0.28),0_0_36px_rgba(255,45,149,0.32)] sm:left-10 sm:right-10" />
+          <div className="grid grid-cols-4 items-end gap-3 sm:gap-4">
             {flow.map((label, idx) => {
               const src = timelineImages[idx];
               if (!src) return null;
@@ -728,18 +731,18 @@ function LayoutFrame({
                   transition={
                     isChaos
                       ? {
-                          duration: 2.6,
+                          duration: 2.4,
                           delay: idx * 0.14 + 0.15,
                           repeat: Infinity,
                           ease: "easeInOut",
                         }
                       : {
-                          duration: 0.52,
+                          duration: 0.46,
                           delay: idx * 0.14,
                           ease: "easeOut",
                         }
                   }
-                  className="w-[40vw] min-w-[145px] flex-1 sm:w-auto"
+                  className="min-w-0"
                 >
                   <div
                     className={
